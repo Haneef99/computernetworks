@@ -23,7 +23,11 @@ int main(){
 	
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(8000);
-	server_addr.sin_addr.s_addr = INADDR_ANY;
+	
+	if(inet_pton(AF_INET,"192.168.68.131",&server_addr.sin_addr) < 0){
+		printf("INvalid ip\n");
+		return -1;
+	}
 	
 	if(bind(fd,(struct sockaddr *)&server_addr,sizeof(struct sockaddr_in)) < 0){
 		printf("bind failed\n");
@@ -44,10 +48,18 @@ int main(){
 	
 	printf("Accepted connection with fd  : %d\n",newfd);
 	
-	while(recv(newfd,buff,50,0) > 0){
-		printf("Received : %s\n",buff);
+	while(1){
+		while(recv(newfd,buff,50,0) > 0){
+			printf("Received : %s\n",buff);
+			break;
+		}
+		
+		char msg[100];
+		printf("Enter msg: \n");
+		fgets(msg,100,stdin);
+		
+		send(newfd,msg,strlen(msg),0);
 	}
-	
 	close(fd);
 	close(newfd);
 	

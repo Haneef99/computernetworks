@@ -16,7 +16,7 @@ int main(){
 	
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(8000);
-	if(inet_pton(AF_INET,"127.0.0.1",&server_addr.sin_addr) < 0){
+	if(inet_pton(AF_INET,"192.168.68.131",&server_addr.sin_addr) < 0){
 		printf("INvalid ip\n");
 		return -1;
 	}
@@ -30,12 +30,20 @@ int main(){
 	
 	sleep(5);
 	
-	const char* msg = "Tesing sockets on local host.........";
-	
-	send(fd,msg,strlen(msg),0);
-	
-	printf("msg sent!\n");
-	
+	while(1){
+		char msg[100];
+		printf("Enter msg: ");
+		fgets(msg,100,stdin);
+		
+		send(fd,msg,strlen(msg),0);
+		
+		printf("msg sent!\n");
+		char buff[100];
+		while(recv(fd,buff,50,0) > 0){
+			printf("Received : %s\n",buff);
+			break;
+		}
+	}
 	close(fd);
 	
 	return 0;
