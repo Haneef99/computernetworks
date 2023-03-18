@@ -1,0 +1,1 @@
+cmd_/home/haneef/Desktop/cn/Volume_Control/device.mod := printf '%s\n'   device.o | awk '!x[$$0]++ { print("/home/haneef/Desktop/cn/Volume_Control/"$$0) }' > /home/haneef/Desktop/cn/Volume_Control/device.mod

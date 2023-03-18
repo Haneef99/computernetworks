@@ -1,0 +1,1 @@
+cmd_/home/haneef/Desktop/cn/Volume_Control/Module.symvers := sed 's/ko$$/o/' /home/haneef/Desktop/cn/Volume_Control/modules.order | scripts/mod/modpost -m   -o /home/haneef/Desktop/cn/Volume_Control/Module.symvers -e -i Module.symvers   -T -
